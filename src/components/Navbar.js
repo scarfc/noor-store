@@ -69,7 +69,6 @@ const Navbar = () => {
                 </Left>
                 <Center><Logo>NOOR STORE.</Logo></Center>
                 <Right>
-                    
                     <MenuItem>REGINSTER</MenuItem>
                     <MenuItem>SIGN IN</MenuItem>
                     <MenuItem>
