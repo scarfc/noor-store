@@ -36,14 +36,36 @@ const Slide = styled.div`
 `;
 
 const ImgContainer = styled.div`
+    height: 100%;
     flex: 1;
 `;
-const Image = styled.img`
 
+const Image = styled.img`
+    height: 100%;
+    padding-left: 80px;
 `;
 
 const InfoContainer = styled.div`
     flex: 1;
+    padding: 50px;
+`;
+
+const Title = styled.h1`
+    font-size: 70px;
+`;
+
+const Desc = styled.p`
+    margin: 50px 0px;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 3px;
+`;
+
+const Button = styled.button`
+    padding: 10px;
+    font-size: 20px;
+    background-color: transparent;
+    cursor: pointer;
 `;
 
 const Slider = () => {
@@ -53,12 +75,26 @@ const Slider = () => {
                 <ArrowLeftOutlined/>
             </Arrow>
             <Wrapper>
-                <Slide></Slide>
+                <Slide>
                 <ImgContainer>
+                <Image src="https://i.pinimg.com/736x/46/f6/6c/46f66cc9ca2fb72c39533ca4b62a7f3b.jpg" />
                 </ImgContainer>
                 <InfoContainer>
-
+                    <Title>WORK OUTFIT</Title>
+                    <Desc>Spring Sale! GET 30% OFF</Desc>
+                    <Button>SHOW NOW</Button>
                 </InfoContainer>
+                </Slide>
+                <Slide>
+                <ImgContainer>
+                <Image src="https://d010204.bibloo.com/_galerie/varianty/120/1207115-z.jpg" />
+                </ImgContainer>
+                <InfoContainer>
+                    <Title>CASUAL CHIC FOR MEN</Title>
+                    <Desc>SUPER DEAL! FREE SHIPPING</Desc>
+                    <Button>SHOW NOW</Button>
+                </InfoContainer>
+                </Slide>
             </Wrapper>
             <Arrow direction="right">
                 <ArrowRightOutlined/>

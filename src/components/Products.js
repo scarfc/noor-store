@@ -1,31 +1,28 @@
 import { Container } from '@material-ui/core';
 import { SettingsSystemDaydreamTwoTone } from '@material-ui/icons';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+
+
 
 function Products() {
 
+    const [products, setProducts] = useState([]);
     const [data, setData] = useState([]);
     const [filter, setFilter] = useState(data);
     const [loading, setLoading] = useState(false);
-    let componentMounted = true;
 
-    useEffect(() => {
-        const getProducts = async () => {
+    useEffect(async () => {
+
             setLoading(true);
-            const response = await fetch("https://fakestoreapi.com/products");
-            if (componentMounted) {
-                setData(await response.clone().json());
-                setFilter(await response.json());
-                setLoading(false);
-                console.log(filter)
-            }
+            const { data: products } = await axios.get('http://localhost:9999/api/products');
+            console.log('111', products.products);
+        
+            setProducts(products.products)
+            setFilter(products.products);
+            setLoading(false);
 
-            return () => {
-                componentMounted = false;
-            }
-        }
-
-        getProducts();
     }, []);
 
     const Loading = () => {
@@ -45,18 +42,20 @@ function Products() {
                     <button className="btn btn-outline-dark me-2">Jewelery</button>
                     <button className="btn btn-outline-dark me-2">Electronics</button>
                 </div>
+
+
                 {filter.map((product) => {
                     return (
                         <>
                             <div className="col-md-3">
                                 <div class="card">
-                                    <img src={product.image} class="card-img-top" alt={product.title}/>
+                                    <img src={product.imageUrl} class="card-img-top" alt={product.name}/>
                                         <div class="card-body">
-                                            <h5 class="card-title">{product.title}</h5>
+                                            <h5 class="card-title">{product.name}</h5>
                                             <p class="card-text">
                                                 ${product.price}
                                             </p>
-                                            <a href="#" class="btn btn-primary">Add</a>
+                                            <NavLink to={`/products/${product.id}`} class="btn btn-outline-dark">Buy Now</NavLink>
                                         </div>
                                 </div>
                             </div>
