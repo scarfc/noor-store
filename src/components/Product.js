@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { addCart } from '../redux/action';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -12,6 +14,11 @@ function Product() {
     const [data, setData] = useState([]);
     const [filter, setFilter] = useState(product);
     const [loading, setLoading] = useState(false);
+
+    const dispatch = useDispatch();
+    const addProduct = (product) => {
+        dispatch(addCart(product));
+    }
 
     useEffect(async () => {
 
@@ -47,7 +54,7 @@ function Product() {
                         $ {product.price}
                     </h3>
                     <p className="lead">{product.description}</p>
-                    <button className="btn btn-outline-dark px-4 py-2">
+                    <button className="btn btn-outline-dark px-4 py-2" onClick={()=>addProduct(product)}>
                         Add to Cart
                     </button>
                     <NavLink to="#" className="btn btn-outline-dark ms-2 px-3 py-2">
@@ -63,8 +70,8 @@ function Product() {
 
     return (
         <div>
-            <div className="container">
-                <div className="row">
+            <div className="container py-5">
+                <div className="row py-4">
                     {loading ? <Loading /> : <ShowProduct />}
                 </div>
             </div>
