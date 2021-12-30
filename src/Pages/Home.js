@@ -4,7 +4,9 @@ import Navbar from '../components/Navbar';
 import Products from '../components/Products';
 import Slider from '../components/Slider';
 import Product from '../components/Product';
+import Cart from '../components/Cart';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 
 const Home = () => {
@@ -17,6 +19,7 @@ const Home = () => {
                     <Route path="/" exact element={<Products/>} />
                     <Route path="/products" element={<Products/>} />
                     <Route path="/products/:id" element={<Product/>} />
+                    <Route path="/cart" element={<Cart/>} />
                     <Route path="/slider" element={<Slider/>} />
                 </Routes>
             </div>

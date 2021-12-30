@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { addCart } from '../redux/action';
+import { addCart, delCart } from '../redux/action/index';  
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 
 function Product() {
 
+    const [cartBtn, setCartBtn] = useState("Add to Cart");
     const { id } = useParams();
     const [product, setProduct] = useState([]);
     const [data, setData] = useState([]);
@@ -17,17 +18,32 @@ function Product() {
 
     const dispatch = useDispatch();
     const addProduct = (product) => {
-        dispatch(addCart(product));
+        if (cartBtn === "Add to Cart") {
+            dispatch(addCart(product))
+            setCartBtn("Remove from Cart")
+        }
+        else{
+            dispatch(delCart(product));
+            setCartBtn('Add to Cart')
+        }
+        
     }
 
     useEffect(async () => {
 
         setLoading(true);
-        const { data: product } = await axios.get(`http://localhost:9999/api/products/${id}`);
-        console.log(product.product);
+        try {
 
-        setProduct(product.product)
-        setFilter(product.product);
+            const { data: product } = await axios.get(`http://localhost:9999/api/products/${id}`);
+            console.log(product.product);
+    
+            setProduct(product.product)
+            setFilter(product.product);
+
+        } catch(e) {
+            console.error(e)
+
+        }
         setLoading(false);
 
     }, []);
@@ -53,11 +69,11 @@ function Product() {
                     <h3 className="display-6 fw-bold my-4">
                         $ {product.price}
                     </h3>
-                    <p className="lead">{product.description}</p>
+                    <p className="lead" dangerouslySetInnerHTML={{__html: product.description}}></p>
                     <button className="btn btn-outline-dark px-4 py-2" onClick={()=>addProduct(product)}>
-                        Add to Cart
+                        {cartBtn}
                     </button>
-                    <NavLink to="#" className="btn btn-outline-dark ms-2 px-3 py-2">
+                    <NavLink to="/cart" className="btn btn-outline-dark ms-2 px-3 py-2">
                         Go to Cart
                     </NavLink>
                 </div>

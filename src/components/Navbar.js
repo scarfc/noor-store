@@ -3,6 +3,7 @@ import { Search, ShoppingCartOutlined } from '@material-ui/icons';
 import React from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 const Container = styled.div`
     height: 60px;
@@ -59,6 +60,8 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
     const state = useSelector((state)=> state.handleCart)
+    const s = useSelector((state)=> state)
+    console.log(s)
     return (
         <Container>
             <Wrapper>
@@ -73,10 +76,10 @@ const Navbar = () => {
                 <Right>
                     <MenuItem>REGINSTER</MenuItem>
                     <MenuItem>SIGN IN</MenuItem>
-                    <MenuItem>
+                    <MenuItem><NavLink to="/Cart">
                     <Badge badgeContent={state.length} color="primary">
                      <ShoppingCartOutlined color="action" />
-                      </Badge>
+                      </Badge></NavLink>
                     </MenuItem>
                 </Right>
             </Wrapper>
